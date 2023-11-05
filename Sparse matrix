@@ -1,0 +1,61 @@
+#include <iostream>
+#include <vector>
+
+class SparseMatrix {
+private:
+    int rows, cols;
+    std::vector<std::vector<int>> data;  // Store non-zero elements
+
+public:
+    SparseMatrix(int r, int c) : rows(r), cols(c) {
+        // Initialize the matrix with all zeros
+        for (int i = 0; i < r; ++i) {
+            std::vector<int> row(c, 0);
+            data.push_back(row);
+        }
+    }
+
+    // Set a non-zero element at a specific position
+    void set(int row, int col, int value) {
+        if (row >= 0 && row < rows && col >= 0 && col < cols) {
+            data[row][col] = value;
+        } else {
+            std::cout << "Invalid position" << std::endl;
+        }
+    }
+
+    // Get the value at a specific position
+    int get(int row, int col) {
+        if (row >= 0 && row < rows && col >= 0 && col < cols) {
+            return data[row][col];
+        } else {
+            std::cout << "Invalid position" << std::endl;
+            return 0;
+        }
+    }
+
+    // Display the sparse matrix
+    void display() {
+        for (int i = 0; i < rows; ++i) {
+            for (int j = 0; j < cols; ++j) {
+                std::cout << data[i][j] << " ";
+            }
+            std::cout << std::endl;
+        }
+    }
+};
+
+int main() {
+    int rows = 3;
+    int cols = 4;
+
+    SparseMatrix sparse(rows, cols);
+
+    sparse.set(0, 1, 5);
+    sparse.set(1, 2, 7);
+    sparse.set(2, 3, 3);
+
+    sparse.display();
+
+    return 0;
+}
